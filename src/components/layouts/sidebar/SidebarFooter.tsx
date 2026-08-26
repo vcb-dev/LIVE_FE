@@ -1,19 +1,17 @@
 import { LogOut } from "lucide-react"
-import { useNavigate } from "react-router-dom"
 
+import { Button } from "@/components/ui/button"
 import { urlPaths } from "@/constants/urlPaths"
 import { ROLE_LABEL } from "@/interfaces/auth"
 import { resetSession } from "@/lib/reset-session"
 import { useAuthStore } from "@/stores/auth-store"
-import { Button } from "@/components/ui/button"
 
 export function SidebarFooter() {
   const user = useAuthStore((state) => state.user)
-  const navigate = useNavigate()
 
   async function handleLogout() {
     await resetSession({ revokeServer: true })
-    navigate(urlPaths.login, { replace: true, state: { skipMeCheck: true } })
+    window.location.replace(urlPaths.login)
   }
 
   return (

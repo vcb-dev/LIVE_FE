@@ -9,6 +9,7 @@ import { useAuthStore } from "@/stores/auth-store"
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const setUser = useAuthStore((state) => state.setUser)
+  const logout = useAuthStore((state) => state.logout)
 
   const { data, isLoading, isError } = useQuery(meQueryOptions(true))
 
@@ -19,7 +20,8 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!isError) return
-  }, [isError])
+    logout()
+  }, [isError, logout])
 
   if (isLoading) {
     return (

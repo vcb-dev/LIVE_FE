@@ -5,9 +5,8 @@ import axios, {
 } from "axios"
 
 import API_PATHS from "@/constants/apiPaths"
-import { urlPaths } from "@/constants/urlPaths"
 import { CSRF_COOKIE, CSRF_HEADER, readCookie } from "@/lib/csrf"
-import { isSessionResetInProgress, resetSession } from "@/lib/reset-session"
+import { isSessionResetInProgress } from "@/lib/reset-session"
 
 type RetryConfig = InternalAxiosRequestConfig & { _retry?: boolean }
 
@@ -60,16 +59,6 @@ instance.interceptors.response.use(
       config._retry ||
       skipRefreshOn401(config.url)
     ) {
-      if (
-        error.response?.status === 401 &&
-        !skipRefreshOn401(config?.url) &&
-        !isSessionResetInProgress()
-      ) {
-        void resetSession()
-        if (window.location.pathname !== urlPaths.login) {
-          window.location.assign(urlPaths.login)
-        }
-      }
       return Promise.reject(error)
     }
 
@@ -82,12 +71,6 @@ instance.interceptors.response.use(
       return instance.request(config)
     }
 
-    if (!isSessionResetInProgress()) {
-      void resetSession()
-      if (window.location.pathname !== urlPaths.login) {
-        window.location.assign(urlPaths.login)
-      }
-    }
     return Promise.reject(error)
   }
 )
