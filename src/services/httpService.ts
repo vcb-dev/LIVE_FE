@@ -40,13 +40,13 @@ async function tryRefresh(): Promise<boolean> {
   }
 }
 
-function isAuthPath(url?: string): boolean {
+/** Auth routes that must not trigger access-token refresh on 401. */
+function skipRefreshOn401(url?: string): boolean {
   if (!url) return false
   return (
     url.includes(API_PATHS.AUTH.LOGIN) ||
     url.includes(API_PATHS.AUTH.REFRESH) ||
-    url.includes(API_PATHS.AUTH.LOGOUT) ||
-    url.includes(API_PATHS.AUTH.ME)
+    url.includes(API_PATHS.AUTH.LOGOUT)
   )
 }
 
@@ -58,11 +58,11 @@ instance.interceptors.response.use(
       error.response?.status !== 401 ||
       !config ||
       config._retry ||
-      isAuthPath(config.url)
+      skipRefreshOn401(config.url)
     ) {
       if (
         error.response?.status === 401 &&
-        !isAuthPath(config?.url) &&
+        !skipRefreshOn401(config?.url) &&
         !isSessionResetInProgress()
       ) {
         void resetSession()
