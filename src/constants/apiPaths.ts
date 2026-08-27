@@ -14,6 +14,11 @@ const API_PATHS = {
     BASE: "/block-groups",
     BY_ID: (id: string) => `/block-groups/${id}`,
   },
+  PRODUCTS: {
+    BASE: "/products",
+    BY_ID: (id: string) => `/products/${id}`,
+    UPLOAD_IMAGE: "/products/upload-image",
+  },
 }
 
 export default API_PATHS

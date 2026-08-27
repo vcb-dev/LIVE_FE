@@ -3,4 +3,5 @@ export const urlPaths = {
   home: "/",
   emotions: "/emotions",
   blockGroups: "/block-groups",
+  products: "/products",
 } as const
