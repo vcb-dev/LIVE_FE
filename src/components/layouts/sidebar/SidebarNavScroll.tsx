@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
 import { NavGroup } from "./NavGroup"
+import { ADMIN_NAV_ITEMS } from "./nav-items"
 import type { NavItem, ScrollFadeState } from "./types"
 
 interface SidebarNavScrollProps {
@@ -66,13 +67,9 @@ export function SidebarNavScroll({
           {operationItems && operationItems.length > 0 ? (
             <NavGroup title="" items={operationItems} />
           ) : null}
-          {/* <NavGroup title="NHÂN SỰ & KPI" items={KPI_NAV_ITEMS} />
-          {salesItems && salesItems.length > 0 ? (
-            <NavGroup title="BÁN HÀNG" items={salesItems} />
-          ) : null}
-          {showSettings ? (
+          {showSettings && ADMIN_NAV_ITEMS.length > 0 ? (
             <NavGroup title="QUẢN TRỊ" items={ADMIN_NAV_ITEMS} />
-          ) : null} */}
+          ) : null}
         </nav>
       </div>
 

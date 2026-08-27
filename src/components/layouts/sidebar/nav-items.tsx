@@ -1,4 +1,4 @@
-import { Home } from "lucide-react"
+import { Home, Smile } from "lucide-react"
 
 import { urlPaths } from "@/constants/urlPaths"
 
@@ -16,4 +16,10 @@ export const KPI_NAV_ITEMS: NavItem[] = []
 
 export const SALES_NAV_ITEMS: NavItem[] = []
 
-export const ADMIN_NAV_ITEMS: NavItem[] = []
+export const ADMIN_NAV_ITEMS: NavItem[] = [
+  {
+    to: urlPaths.emotions,
+    label: "Biểu cảm",
+    icon: <Smile className="h-4 w-4" />,
+  },
+]

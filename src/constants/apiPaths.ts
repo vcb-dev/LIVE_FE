@@ -5,6 +5,11 @@ const API_PATHS = {
     ME: "/auth/me",
     REFRESH: "/auth/refresh",
   },
+  EMOTIONS: {
+    BASE: "/emotions",
+    BY_ID: (id: string) => `/emotions/${id}`,
+    UPLOAD_IMAGE: "/emotions/upload-image",
+  },
 }
 
 export default API_PATHS
