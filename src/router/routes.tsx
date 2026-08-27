@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 
 import LoginPage from "@/app/auth/LoginPage"
+import BlockGroupsPage from "@/app/block-groups/BlockGroupsPage"
 import EmotionsPage from "@/app/emotions/EmotionsPage"
 import HomePage from "@/app/home/HomePage"
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: urlPaths.emotions,
         element: <EmotionsPage />,
+      },
+      {
+        path: urlPaths.blockGroups,
+        element: <BlockGroupsPage />,
       },
     ],
   },

@@ -1,4 +1,4 @@
-import { Home, Smile } from "lucide-react"
+import { Home, Layers, Smile } from "lucide-react"
 
 import { urlPaths } from "@/constants/urlPaths"
 
@@ -21,5 +21,10 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
     to: urlPaths.emotions,
     label: "Biểu cảm",
     icon: <Smile className="h-4 w-4" />,
+  },
+  {
+    to: urlPaths.blockGroups,
+    label: "Nhóm block",
+    icon: <Layers className="h-4 w-4" />,
   },
 ]

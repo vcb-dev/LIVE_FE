@@ -10,6 +10,10 @@ const API_PATHS = {
     BY_ID: (id: string) => `/emotions/${id}`,
     UPLOAD_IMAGE: "/emotions/upload-image",
   },
+  BLOCK_GROUPS: {
+    BASE: "/block-groups",
+    BY_ID: (id: string) => `/block-groups/${id}`,
+  },
 }
 
 export default API_PATHS
