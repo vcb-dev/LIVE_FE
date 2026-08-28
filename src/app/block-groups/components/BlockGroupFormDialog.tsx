@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form"
 import { MODAL_MODE, type ModalModeType } from "@/constants/common"
 
-import { BLOCK_TYPE_OPTIONS, getBlockTypeLabel } from "../constants/block-type"
+import { BLOCK_GROUP_TYPE_OPTIONS, getBlockTypeLabel } from "../constants/block-type"
 import {
   createBlockGroupDefaultValues,
   createBlockGroupSchema,
@@ -89,7 +89,7 @@ export function BlockGroupFormDialog({
   const title = isEdit ? "Sửa nhóm block" : "Thêm nhóm block"
   const description = isEdit
     ? "Loại và mã nhóm không thể thay đổi sau khi tạo."
-    : "Nhóm block dùng cho các loại CTA, GAME... có mục con."
+    : "Nhóm block là mục con của CTA (Tương tác, Chốt đơn, Social proof...)."
 
   return (
     <FormDialog
@@ -200,7 +200,7 @@ export function BlockGroupFormDialog({
               name="type"
               label="Loại block"
               placeholder="Chọn loại block"
-              options={BLOCK_TYPE_OPTIONS}
+              options={BLOCK_GROUP_TYPE_OPTIONS}
               required
             />
             <FormInput

@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { BLOCK_TYPES } from "../constants/block-type"
+import { BLOCK_GROUP_TYPES } from "../constants/block-type"
 
 const codeSchema = z
   .string()
@@ -31,7 +31,7 @@ const pickCountSchema = z.coerce
   .min(0, "Số lượng chọn phải >= 0")
 
 export const createBlockGroupSchema = z.object({
-  type: z.enum(BLOCK_TYPES, { message: "Vui lòng chọn loại block" }),
+  type: z.enum(BLOCK_GROUP_TYPES, { message: "Chỉ CTA mới có nhóm block" }),
   code: codeSchema,
   name: nameSchema,
   weight: weightSchema,

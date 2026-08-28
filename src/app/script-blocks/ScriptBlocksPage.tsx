@@ -1,22 +1,22 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
-import { Layers, Plus, Search } from "lucide-react"
+import { FileText, Plus, Search } from "lucide-react"
 import { useState } from "react"
 import { Navigate } from "react-router-dom"
 
-import { BlockGroupDeleteDialog } from "@/app/block-groups/components/BlockGroupDeleteDialog"
-import { BlockGroupFormDialog } from "@/app/block-groups/components/BlockGroupFormDialog"
-import { BlockGroupsTable } from "@/app/block-groups/components/BlockGroupsTable"
 import {
-  BLOCK_GROUP_TYPE_OPTIONS,
+  SCRIPT_BLOCK_TYPE_OPTIONS,
   type BlockType,
 } from "@/app/block-groups/constants/block-type"
-import { useBlockGroupMutations } from "@/app/block-groups/hooks/use-block-group-mutations"
-import { listBlockGroupsQueryOptions } from "@/app/block-groups/queries/block-group-query"
+import { ScriptBlockDeleteDialog } from "@/app/script-blocks/components/ScriptBlockDeleteDialog"
+import { ScriptBlockFormDialog } from "@/app/script-blocks/components/ScriptBlockFormDialog"
+import { ScriptBlocksTable } from "@/app/script-blocks/components/ScriptBlocksTable"
+import { useScriptBlockMutations } from "@/app/script-blocks/hooks/use-script-block-mutations"
+import { listScriptBlocksQueryOptions } from "@/app/script-blocks/queries/script-block-query"
 import type {
-  CreateBlockGroupFormValues,
-  UpdateBlockGroupFormValues,
-} from "@/app/block-groups/schemas/block-group-form.schema"
-import type { BlockGroup } from "@/app/block-groups/types/block-group"
+  CreateScriptBlockFormValues,
+  UpdateScriptBlockFormValues,
+} from "@/app/script-blocks/schemas/script-block-form.schema"
+import type { ScriptBlock } from "@/app/script-blocks/types/script-block"
 import { PageHeader } from "@/components/UiCustom/PageHeader"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -35,7 +35,7 @@ import { DEFAULT_LIMIT, DEFAULT_PAGE } from "@/types/pagination"
 
 const ALL_TYPES_VALUE = "ALL"
 
-export default function BlockGroupsPage() {
+export default function ScriptBlocksPage() {
   const isStaff = useIsStaff()
 
   const [page, setPage] = useState(DEFAULT_PAGE)
@@ -47,15 +47,15 @@ export default function BlockGroupsPage() {
   const [formMode, setFormMode] = useState<(typeof MODAL_MODE)[keyof typeof MODAL_MODE]>(
     MODAL_MODE.ADD
   )
-  const [selectedBlockGroup, setSelectedBlockGroup] = useState<BlockGroup | null>(null)
+  const [selectedBlock, setSelectedBlock] = useState<ScriptBlock | null>(null)
 
   const [deleteOpen, setDeleteOpen] = useState(false)
-  const [deletingBlockGroup, setDeletingBlockGroup] = useState<BlockGroup | null>(null)
+  const [deletingBlock, setDeletingBlock] = useState<ScriptBlock | null>(null)
 
-  const { createMutation, updateMutation, deleteMutation } = useBlockGroupMutations()
+  const { createMutation, updateMutation, deleteMutation } = useScriptBlockMutations()
 
   const { data, isLoading, isFetching } = useQuery({
-    ...listBlockGroupsQueryOptions({
+    ...listScriptBlocksQueryOptions({
       page,
       limit: DEFAULT_LIMIT,
       q: debouncedSearch || undefined,
@@ -69,7 +69,7 @@ export default function BlockGroupsPage() {
     return <Navigate to={urlPaths.home} replace />
   }
 
-  const blockGroups = data?.data ?? []
+  const scriptBlocks = data?.data ?? []
   const meta = data?.meta
   const pageCount = Math.max(meta?.totalPages ?? 1, 1)
   const pageIndex = (meta?.page ?? page) - 1
@@ -77,41 +77,41 @@ export default function BlockGroupsPage() {
 
   function openCreateDialog() {
     setFormMode(MODAL_MODE.ADD)
-    setSelectedBlockGroup(null)
+    setSelectedBlock(null)
     setFormOpen(true)
   }
 
-  function openEditDialog(blockGroup: BlockGroup) {
+  function openEditDialog(block: ScriptBlock) {
     setFormMode(MODAL_MODE.EDIT)
-    setSelectedBlockGroup(blockGroup)
+    setSelectedBlock(block)
     setFormOpen(true)
   }
 
-  function openDeleteDialog(blockGroup: BlockGroup) {
-    setDeletingBlockGroup(blockGroup)
+  function openDeleteDialog(block: ScriptBlock) {
+    setDeletingBlock(block)
     setDeleteOpen(true)
   }
 
-  function handleCreate(values: CreateBlockGroupFormValues) {
+  function handleCreate(values: CreateScriptBlockFormValues) {
     createMutation.mutate(values, { onSuccess: () => setFormOpen(false) })
   }
 
-  function handleUpdate(values: UpdateBlockGroupFormValues) {
-    if (!selectedBlockGroup) return
+  function handleUpdate(values: UpdateScriptBlockFormValues) {
+    if (!selectedBlock) return
 
     updateMutation.mutate(
-      { id: selectedBlockGroup.id, payload: values },
+      { id: selectedBlock.id, values },
       { onSuccess: () => setFormOpen(false) }
     )
   }
 
   function handleDeleteConfirm() {
-    if (!deletingBlockGroup) return
+    if (!deletingBlock) return
 
-    deleteMutation.mutate(deletingBlockGroup.id, {
+    deleteMutation.mutate(deletingBlock.id, {
       onSuccess: () => {
         setDeleteOpen(false)
-        setDeletingBlockGroup(null)
+        setDeletingBlock(null)
       },
     })
   }
@@ -129,12 +129,12 @@ export default function BlockGroupsPage() {
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
       <PageHeader
-        title="Nhóm block"
-        description="Quản lý mục con của block CTA."
+        title="Kho nội dung"
+        description="Quản lý block kịch bản dùng khi generate timeline livestream."
         actions={
           <Button type="button" onClick={openCreateDialog}>
             <Plus className="h-4 w-4" />
-            Thêm nhóm block
+            Thêm block
           </Button>
         }
       />
@@ -145,7 +145,7 @@ export default function BlockGroupsPage() {
           <Input
             value={search}
             onChange={(event) => handleSearchChange(event.target.value)}
-            placeholder="Tìm theo tên hoặc mã..."
+            placeholder="Tìm theo tiêu đề hoặc nội dung..."
             className="pl-9"
           />
         </div>
@@ -154,12 +154,12 @@ export default function BlockGroupsPage() {
           onValueChange={handleTypeFilterChange}
         >
           <SelectTrigger className="w-full sm:w-56">
-            <Layers className="mr-2 h-4 w-4 text-muted-foreground" />
+            <FileText className="mr-2 h-4 w-4 text-muted-foreground" />
             <SelectValue placeholder="Lọc theo loại" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value={ALL_TYPES_VALUE}>Tất cả loại</SelectItem>
-            {BLOCK_GROUP_TYPE_OPTIONS.map((option) => (
+            {SCRIPT_BLOCK_TYPE_OPTIONS.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
               </SelectItem>
@@ -168,8 +168,8 @@ export default function BlockGroupsPage() {
         </Select>
       </div>
 
-      <BlockGroupsTable
-        data={blockGroups}
+      <ScriptBlocksTable
+        data={scriptBlocks}
         loading={tableLoading}
         pageIndex={pageIndex}
         pageCount={pageCount}
@@ -178,20 +178,20 @@ export default function BlockGroupsPage() {
         onDelete={openDeleteDialog}
       />
 
-      <BlockGroupFormDialog
+      <ScriptBlockFormDialog
         open={formOpen}
         onOpenChange={setFormOpen}
         mode={formMode}
-        blockGroup={selectedBlockGroup}
+        scriptBlock={selectedBlock}
         loading={createMutation.isPending || updateMutation.isPending}
         onCreate={handleCreate}
         onUpdate={handleUpdate}
       />
 
-      <BlockGroupDeleteDialog
+      <ScriptBlockDeleteDialog
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
-        blockGroup={deletingBlockGroup}
+        scriptBlock={deletingBlock}
         loading={deleteMutation.isPending}
         onConfirm={handleDeleteConfirm}
       />

@@ -15,8 +15,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { useState } from "react"
 import { cn } from "@/lib/utils"
+import { useState } from "react"
 
 export interface MultiSelectOption {
   value: string
@@ -108,7 +108,7 @@ export function MultiSelect({
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-[--radix-popover-trigger-width] p-0"
+        className="z-[200] w-(--radix-popover-trigger-width) min-w-(--radix-popover-trigger-width) p-0"
         align="start"
       >
         <Command>

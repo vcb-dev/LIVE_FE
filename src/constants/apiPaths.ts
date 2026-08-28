@@ -19,6 +19,10 @@ const API_PATHS = {
     BY_ID: (id: string) => `/products/${id}`,
     UPLOAD_IMAGE: "/products/upload-image",
   },
+  SCRIPT_BLOCKS: {
+    BASE: "/script-blocks",
+    BY_ID: (id: string) => `/script-blocks/${id}`,
+  },
 }
 
 export default API_PATHS

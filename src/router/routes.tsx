@@ -5,6 +5,7 @@ import BlockGroupsPage from "@/app/block-groups/BlockGroupsPage"
 import EmotionsPage from "@/app/emotions/EmotionsPage"
 import HomePage from "@/app/home/HomePage"
 import ProductsPage from "@/app/products/ProductsPage"
+import ScriptBlocksPage from "@/app/script-blocks/ScriptBlocksPage"
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
 import MainLayout from "@/components/layouts/MainLayout"
 import { urlPaths } from "@/constants/urlPaths"
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: urlPaths.products,
         element: <ProductsPage />,
+      },
+      {
+        path: urlPaths.scriptBlocks,
+        element: <ScriptBlocksPage />,
       },
     ],
   },
