@@ -65,7 +65,7 @@ export function SidebarNavScroll({
       >
         <nav className="space-y-6 px-3 py-2 pt-4 pb-3" id="nav-groups">
           {operationItems && operationItems.length > 0 ? (
-            <NavGroup title="" items={operationItems} />
+            <NavGroup title="HOẠT ĐỘNG" items={operationItems} />
           ) : null}
           {showSettings && ADMIN_NAV_ITEMS.length > 0 ? (
             <NavGroup title="QUẢN TRỊ" items={ADMIN_NAV_ITEMS} />

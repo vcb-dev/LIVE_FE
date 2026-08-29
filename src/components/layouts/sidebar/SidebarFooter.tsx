@@ -25,7 +25,11 @@ export function SidebarFooter() {
             Vai trò: {user ? ROLE_LABEL[user.role] : "—"}
           </p>
         </div>
-        <Button onClick={handleLogout} title="Đăng xuất" className="text-xs">
+        <Button
+          onClick={handleLogout}
+          title="Đăng xuất"
+          className="bg-[#014D4E] text-xs text-white"
+        >
           <LogOut className="h-3.5 w-3.5" />
           Đăng xuất
         </Button>

@@ -8,17 +8,17 @@ import {
 
 import {
   Table,
-  TableHeader,
-  TableHead,
   TableBody,
-  TableRow,
   TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table"
 
-import type { DataTableProps } from "./types"
-import { DataTablePagination } from "./data-table-pagination"
 import { DataTableEmpty } from "./data-table-empty"
+import { DataTablePagination } from "./data-table-pagination"
 import { DataTableSkeleton } from "./data-table-skeleton"
+import type { DataTableProps } from "./types"
 
 export function DataTable<TData, TValue>({
   title,

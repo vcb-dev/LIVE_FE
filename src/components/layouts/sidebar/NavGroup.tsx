@@ -1,5 +1,6 @@
-import { NavLink, useLocation } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
+import { urlPaths } from "@/constants/urlPaths"
 import { cn } from "@/lib/utils"
 
 import { CollapsibleNavItem } from "./CollapsibleNavItem"
@@ -11,8 +12,6 @@ interface NavGroupProps {
 }
 
 export function NavGroup({ title, items }: NavGroupProps) {
-  const location = useLocation()
-
   return (
     <div>
       <p className="mb-2 px-4 text-[10px] font-bold tracking-wider uppercase">
@@ -27,11 +26,12 @@ export function NavGroup({ title, items }: NavGroupProps) {
             <NavLink
               key={item.label}
               to={item.to!}
+              end={item.to === urlPaths.home}
               className={({ isActive }) =>
                 cn(
                   "group flex items-center gap-3 rounded-lg px-4 py-2 text-sm transition-all",
-                  isActive || (item.to && location.pathname.startsWith(item.to))
-                    ? "border-l-4 border-l-lime-400 bg-primary text-white"
+                  isActive
+                    ? "border-l-4 border-l-lime-400 bg-[#014D4E] text-white"
                     : "bg-primary hover:bg-emerald-900/40"
                 )
               }
