@@ -63,7 +63,7 @@ export default function LiveSessionNewPage() {
 
           <div className="flex gap-2">
             <Button type="submit" disabled={createMutation.isPending}>
-              {createMutation.isPending ? "Đang generate..." : "Tạo và generate"}
+              {createMutation.isPending ? "Đang tạo..." : "Tạo"}
             </Button>
             <Button
               type="button"
