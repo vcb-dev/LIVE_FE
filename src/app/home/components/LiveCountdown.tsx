@@ -42,7 +42,7 @@ export function LiveCountdown({
           fill="none"
           stroke="currentColor"
           strokeWidth={stroke}
-          className="text-white/10"
+          className="text-border"
         />
         <circle
           cx={size / 2}
@@ -57,23 +57,23 @@ export function LiveCountdown({
           style={{ strokeDashoffset: offset }}
           className={cn(
             isLastTenSeconds
-              ? "text-red-400"
+              ? "text-destructive"
               : remainingRatio <= 0.25
-                ? "text-amber-400"
-                : "text-cyan-400"
+                ? "text-amber-600"
+                : "text-primary"
           )}
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <p
           className={cn(
-            "font-display text-5xl font-bold tracking-tight tabular-nums",
-            isLastTenSeconds && "text-red-400"
+            "font-display text-5xl font-bold tracking-tight tabular-nums text-foreground",
+            isLastTenSeconds && "text-destructive"
           )}
         >
           {formatClock(remainingMs)}
         </p>
-        <p className="mt-1 text-xs font-medium tracking-[0.2em] text-white/50 uppercase">
+        <p className="mt-1 text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
           {isPaused ? "Tạm dừng" : "Đang chạy"}
         </p>
       </div>

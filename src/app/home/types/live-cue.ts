@@ -6,6 +6,8 @@ export interface LiveCue {
   title: string
   durationSec: number
   productName?: string
+  productImageUrl?: string
   groupName?: string
   emotionName?: string
+  emotionImageUrls?: string[]
 }

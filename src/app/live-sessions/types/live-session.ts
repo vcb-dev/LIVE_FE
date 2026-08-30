@@ -48,8 +48,10 @@ export interface SegmentItem {
   blockId: string | null
   position: number
   type: BlockType
+  title: string | null
   content: string
   emotionCodes: string[]
+  emotionImageUrls: string[]
   plannedSec: number
   status: "PENDING" | "ACTIVE" | "DONE" | "SKIPPED"
 }
@@ -60,6 +62,7 @@ export interface SessionSegment {
   productId: string | null
   productCode: string | null
   productName: string | null
+  productImageUrl: string | null
   position: number
   plannedSec: number
   items: SegmentItem[]

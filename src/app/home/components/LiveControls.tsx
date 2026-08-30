@@ -23,13 +23,8 @@ export function LiveControls({
   if (isFinished) {
     return (
       <div className="flex flex-wrap items-center justify-center gap-3">
-        <Button
-          type="button"
-          size="lg"
-          className="h-14 min-w-48 rounded-2xl bg-cyan-500 px-8 text-base font-semibold text-zinc-950 hover:bg-cyan-400"
-          onClick={onRestart}
-        >
-          Phát lại phiên demo
+        <Button type="button" size="lg" className="min-w-48 px-8" onClick={onRestart}>
+          Phát lại từ đầu
         </Button>
       </div>
     )
@@ -42,8 +37,8 @@ export function LiveControls({
         size="lg"
         variant="outline"
         className={cn(
-          "h-14 min-w-40 rounded-2xl border-white/15 bg-white/5 px-8 text-base font-semibold text-white hover:bg-white/10 hover:text-white",
-          isPaused && "border-amber-400/40 bg-amber-400/10 text-amber-200"
+          "min-w-40 px-8",
+          isPaused && "border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100"
         )}
         onClick={onTogglePause}
       >
@@ -62,7 +57,7 @@ export function LiveControls({
       <Button
         type="button"
         size="lg"
-        className="h-14 min-w-40 rounded-2xl bg-cyan-500 px-8 text-base font-semibold text-zinc-950 hover:bg-cyan-400"
+        className="min-w-40 px-8"
         onClick={onNext}
         disabled={!canNext}
       >
