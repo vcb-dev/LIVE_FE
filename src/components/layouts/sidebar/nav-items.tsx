@@ -1,4 +1,11 @@
-import { Home, Layers, Package, ScrollText, Smile } from "lucide-react"
+import {
+  Clapperboard,
+  Home,
+  Layers,
+  Package,
+  ScrollText,
+  Smile,
+} from "lucide-react"
 
 import { urlPaths } from "@/constants/urlPaths"
 
@@ -36,5 +43,10 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
     to: urlPaths.scriptBlocks,
     label: "Kho nội dung",
     icon: <ScrollText className="h-4 w-4" />,
+  },
+  {
+    to: urlPaths.liveSessions,
+    label: "Kịch bản live",
+    icon: <Clapperboard className="h-4 w-4" />,
   },
 ]

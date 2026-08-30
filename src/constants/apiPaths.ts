@@ -23,6 +23,11 @@ const API_PATHS = {
     BASE: "/script-blocks",
     BY_ID: (id: string) => `/script-blocks/${id}`,
   },
+  LIVE_SESSIONS: {
+    BASE: "/live-sessions",
+    BY_ID: (id: string) => `/live-sessions/${id}`,
+    REGENERATE: (id: string) => `/live-sessions/${id}/regenerate`,
+  },
 }
 
 export default API_PATHS

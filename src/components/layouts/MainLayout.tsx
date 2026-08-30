@@ -63,7 +63,7 @@ export default function MainLayout() {
         </main>
       </div>
 
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="bottom-left" />
     </div>
   )
 }
