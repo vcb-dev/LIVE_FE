@@ -1,8 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { Wand } from "lucide-react"
 import { useEffect } from "react"
 import type { Control } from "react-hook-form"
 import { useForm, useWatch } from "react-hook-form"
+import { toast } from "sonner"
 
 import {
   BLOCK_TYPE_LABELS,
@@ -28,6 +30,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { MODAL_MODE, type ModalModeType } from "@/constants/common"
+import { getApiErrorMessage } from "@/lib/get-api-error-message"
+
+import { generateMeaningSuggestion } from "../services/scriptBlockService"
 
 import {
   createScriptBlockDefaultValues,
@@ -40,7 +45,7 @@ import {
   type UpdateScriptBlockFormInput,
   type UpdateScriptBlockFormValues,
 } from "../schemas/script-block-form.schema"
-import type { ScriptBlock } from "../types/script-block"
+import type { ScriptBlock, ScriptBlockSuggestion } from "../types/script-block"
 import {
   isGroupRequired,
   isProductRequired,
@@ -92,7 +97,21 @@ export function ScriptBlockFormDialog({
     name: "type",
   }) as BlockType | undefined
 
+  const watchedProductId = useWatch({
+    control: createForm.control,
+    name: "productId",
+  })
+
   const blockType = isEdit ? scriptBlock?.type : watchedType
+
+  const suggestMutation = useMutation({
+    mutationFn: generateMeaningSuggestion,
+    onError: (error) => {
+      toast.error(getApiErrorMessage(error, "Không thể lấy gợi ý AI"))
+    },
+  })
+
+  const isSaving = loading || suggestMutation.isPending
 
   const { data: emotionsData } = useQuery({
     ...listEmotionsQueryOptions({ page: 1, limit: 100 }),
@@ -163,6 +182,46 @@ export function ScriptBlockFormDialog({
     onUpdate(values)
   }
 
+  function applySuggestionToUpdateForm(data: ScriptBlockSuggestion) {
+    updateForm.setValue("title", data.title, { shouldDirty: true })
+    updateForm.setValue("content", data.content, { shouldDirty: true })
+    updateForm.setValue("durationSec", data.suggestedDurationSec, {
+      shouldDirty: true,
+    })
+    toast.success("Đã điền gợi ý AI")
+  }
+
+  function applySuggestionToCreateForm(data: ScriptBlockSuggestion) {
+    createForm.setValue("title", data.title, { shouldDirty: true })
+    createForm.setValue("content", data.content, { shouldDirty: true })
+    createForm.setValue("durationSec", data.suggestedDurationSec, {
+      shouldDirty: true,
+    })
+    toast.success("Đã điền gợi ý AI")
+  }
+
+  function handleSuggestMeaning(productId: string) {
+    const existingTitle = isEdit
+      ? updateForm.getValues("title")?.trim()
+      : createForm.getValues("title")?.trim()
+
+    suggestMutation.mutate(
+      {
+        productId,
+        existingTitle: existingTitle || undefined,
+      },
+      {
+        onSuccess: (data) => {
+          if (isEdit) {
+            applySuggestionToUpdateForm(data)
+            return
+          }
+          applySuggestionToCreateForm(data)
+        },
+      }
+    )
+  }
+
   function renderScopeReadonly() {
     if (!scriptBlock) return null
 
@@ -200,9 +259,12 @@ export function ScriptBlockFormDialog({
       unknown,
       UpdateScriptBlockFormValues
     >,
-    contentType?: BlockType
+    contentType?: BlockType,
+    productId?: string
   ) {
     const typeForPlaceholder = contentType ?? "STORY"
+    const showMeaningAi = contentType === "MEANING"
+    const resolvedProductId = productId?.trim()
 
     return (
       <>
@@ -212,14 +274,38 @@ export function ScriptBlockFormDialog({
           label="Tiêu đề (admin)"
           placeholder="Nhãn ngắn để tìm kiếm, không đọc lên sóng"
         />
-        <FormTextarea
-          control={formControl}
-          name="content"
-          label="Nội dung"
-          placeholder={getContentPlaceholder(typeForPlaceholder)}
-          rows={5}
-          required
-        />
+        <div className="space-y-2">
+          {showMeaningAi ? (
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-sm font-medium">
+                Nội dung
+                <span className="text-red-500">*</span>
+              </span>
+              <Button
+                type="button"
+                size="sm"
+                disabled={isSaving || !resolvedProductId}
+                onClick={() => {
+                  if (!resolvedProductId) return
+                  handleSuggestMeaning(resolvedProductId)
+                }}
+              >
+                <Wand className="h-4 w-4" />
+                {suggestMutation.isPending ? "Đang gợi ý..." : "AI gợi ý Fact"}
+              </Button>
+            </div>
+          ) : null}
+          <FormTextarea
+            control={formControl}
+            name="content"
+            label={showMeaningAi ? undefined : "Nội dung"}
+            hideLabel={showMeaningAi}
+            placeholder={getContentPlaceholder(typeForPlaceholder)}
+            rows={5}
+            required
+            disabled={isSaving}
+          />
+        </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <FormInput
             control={formControl}
@@ -227,6 +313,7 @@ export function ScriptBlockFormDialog({
             label="Thời lượng (giây)"
             type="number"
             required
+            disabled={isSaving}
           />
           <FormInput
             control={formControl}
@@ -234,6 +321,7 @@ export function ScriptBlockFormDialog({
             label="Trọng số random"
             type="number"
             required
+            disabled={isSaving}
           />
         </div>
         <FormField
@@ -264,7 +352,7 @@ export function ScriptBlockFormDialog({
                 <Checkbox
                   checked={field.value}
                   onChange={(event) => field.onChange(event.target.checked)}
-                  disabled={loading}
+                  disabled={isSaving}
                 />
               </FormControl>
               <div className="space-y-1 leading-none">
@@ -292,11 +380,11 @@ export function ScriptBlockFormDialog({
             type="button"
             variant="outline"
             onClick={() => onOpenChange(false)}
-            disabled={loading}
+            disabled={isSaving}
           >
             Hủy
           </Button>
-          <Button type="submit" form={formId} disabled={loading}>
+          <Button type="submit" form={formId} disabled={isSaving}>
             {loading ? "Đang lưu..." : isEdit ? "Lưu thay đổi" : "Tạo block"}
           </Button>
         </>
@@ -310,7 +398,11 @@ export function ScriptBlockFormDialog({
             onSubmit={updateForm.handleSubmit(handleUpdateSubmit)}
           >
             {renderScopeReadonly()}
-            {renderSharedFields(updateForm.control, scriptBlock?.type)}
+            {renderSharedFields(
+              updateForm.control,
+              scriptBlock?.type,
+              scriptBlock?.productId ?? undefined
+            )}
           </form>
         </Form>
       ) : (
@@ -356,7 +448,7 @@ export function ScriptBlockFormDialog({
                       <ProductSearchCombobox
                         value={field.value || undefined}
                         onChange={field.onChange}
-                        disabled={loading}
+                        disabled={isSaving}
                       />
                     </FormControl>
                     <FormMessage />
@@ -371,7 +463,8 @@ export function ScriptBlockFormDialog({
                 unknown,
                 UpdateScriptBlockFormValues
               >,
-              blockType
+              blockType,
+              watchedProductId
             )}
           </form>
         </Form>

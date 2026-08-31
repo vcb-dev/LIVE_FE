@@ -4,8 +4,10 @@ import type { PaginatedResponse } from "@/types/pagination"
 
 import type {
   CreateScriptBlockPayload,
+  GenerateMeaningSuggestionPayload,
   ListScriptBlocksParams,
   ScriptBlock,
+  ScriptBlockSuggestion,
   UpdateScriptBlockPayload,
 } from "../types/script-block"
 
@@ -49,4 +51,14 @@ export async function updateScriptBlock(
 
 export async function deleteScriptBlock(id: string): Promise<void> {
   await httpService.delete(API_PATHS.SCRIPT_BLOCKS.BY_ID(id))
+}
+
+export async function generateMeaningSuggestion(
+  payload: GenerateMeaningSuggestionPayload
+): Promise<ScriptBlockSuggestion> {
+  const { data } = await httpService.post<ScriptBlockSuggestion>(
+    API_PATHS.SCRIPT_BLOCKS.GENERATE_MEANING_SUGGESTION,
+    payload
+  )
+  return data
 }

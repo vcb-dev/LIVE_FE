@@ -65,6 +65,17 @@ export interface UpdateScriptBlockPayload {
   emotionIds?: string[]
 }
 
+export interface GenerateMeaningSuggestionPayload {
+  productId: string
+  existingTitle?: string
+}
+
+export interface ScriptBlockSuggestion {
+  title: string
+  content: string
+  suggestedDurationSec: number
+}
+
 export const PRODUCT_REQUIRED_TYPES: BlockType[] = ["STORY", "MEANING"]
 export const GROUP_REQUIRED_TYPES: BlockType[] = ["CTA"]
 export const OPTIONAL_PRODUCT_TYPES: BlockType[] = ["PRODUCT_SPEC"]

@@ -150,6 +150,10 @@ export function getContentPlaceholder(type: CreateScriptBlockFormValues["type"])
   switch (type) {
     case "PRODUCT_SPEC":
       return "VD: {{name}} — chất liệu {{material}}, size {{size}}..."
+    case "MEANING":
+      return "Fun fact / kiến thức thú vị về sản phẩm, host đọc nguyên văn trên live..."
+    case "STORY":
+      return "Câu chuyện cảm xúc gắn sản phẩm, host đọc nguyên văn trên live..."
     case "OPENING":
     case "CLOSING":
     case "CTA":

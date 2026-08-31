@@ -22,6 +22,7 @@ const API_PATHS = {
   SCRIPT_BLOCKS: {
     BASE: "/script-blocks",
     BY_ID: (id: string) => `/script-blocks/${id}`,
+    GENERATE_MEANING_SUGGESTION: "/script-blocks/generate-meaning-suggestion",
   },
   LIVE_SESSIONS: {
     BASE: "/live-sessions",
