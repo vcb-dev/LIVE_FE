@@ -8,51 +8,50 @@ interface LiveCountdownProps {
   isPaused: boolean
 }
 
+const SIZE = 220
+const STROKE = 10
+const RADIUS = (SIZE - STROKE) / 2
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS
+
 export function LiveCountdown({
   remainingMs,
   progress,
   isPaused,
 }: LiveCountdownProps) {
-  const size = 220
-  const stroke = 10
-  const radius = (size - stroke) / 2
-  const circumference = 2 * Math.PI * radius
   const remainingRatio = 1 - progress
-  const offset = circumference * (1 - remainingRatio)
+  const offset = CIRCUMFERENCE * (1 - remainingRatio)
   const isLastTenSeconds = remainingMs <= 10_000
 
   return (
     <div
       className={cn(
-        "relative flex size-55 items-center justify-center",
+        "relative aspect-square w-36 shrink-0 sm:w-44 md:w-52 lg:w-55",
         isLastTenSeconds && !isPaused && "animate-[pulse_0.7s_ease-in-out_infinite]"
       )}
     >
       <svg
-        width={size}
-        height={size}
-        viewBox={`0 0 ${size} ${size}`}
-        className="-rotate-90"
+        viewBox={`0 0 ${SIZE} ${SIZE}`}
+        className="h-full w-full -rotate-90"
         aria-hidden
       >
         <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
+          cx={SIZE / 2}
+          cy={SIZE / 2}
+          r={RADIUS}
           fill="none"
           stroke="currentColor"
-          strokeWidth={stroke}
+          strokeWidth={STROKE}
           className="text-border"
         />
         <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
+          cx={SIZE / 2}
+          cy={SIZE / 2}
+          r={RADIUS}
           fill="none"
           stroke="currentColor"
-          strokeWidth={stroke}
+          strokeWidth={STROKE}
           strokeLinecap="round"
-          strokeDasharray={circumference}
+          strokeDasharray={CIRCUMFERENCE}
           strokeDashoffset={offset}
           style={{ strokeDashoffset: offset }}
           className={cn(
@@ -67,7 +66,7 @@ export function LiveCountdown({
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <p
           className={cn(
-            "font-display text-5xl font-bold tracking-tight tabular-nums text-foreground",
+            "font-display text-3xl font-bold tracking-tight tabular-nums text-foreground sm:text-4xl md:text-5xl",
             isLastTenSeconds && "text-destructive"
           )}
         >

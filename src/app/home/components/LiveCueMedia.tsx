@@ -13,25 +13,25 @@ export function LiveCueMedia({ cue }: LiveCueMediaProps) {
   }
 
   return (
-    <div className="flex flex-wrap items-end justify-center gap-6">
+    <div className="flex flex-wrap items-end justify-center gap-3 sm:gap-4 md:gap-6">
       {hasProductImage ? (
         <figure className="flex flex-col items-center gap-2">
           <img
             src={cue.productImageUrl}
             alt={cue.productName ?? "Sản phẩm"}
-            className="size-28 rounded-2xl border border-border bg-card object-cover shadow-sm md:size-32"
+            className="size-20 rounded-xl border border-border bg-card object-cover shadow-sm sm:size-24 sm:rounded-2xl md:size-28 lg:size-32"
           />
         </figure>
       ) : null}
 
       {emotionImages.length > 0 ? (
-        <div className="flex flex-wrap items-center justify-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
           {emotionImages.map((url) => (
             <img
               key={url}
               src={url}
               alt="Biểu cảm"
-              className="size-28 rounded-2xl border border-border bg-card object-cover shadow-sm md:size-32"
+              className="size-20 rounded-xl border border-border bg-card object-cover shadow-sm sm:size-24 sm:rounded-2xl md:size-28 lg:size-32"
             />
           ))}
         </div>

@@ -22,8 +22,13 @@ export function LiveControls({
 }: LiveControlsProps) {
   if (isFinished) {
     return (
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        <Button type="button" size="lg" className="min-w-48 px-8" onClick={onRestart}>
+      <div className="flex w-full max-w-sm flex-col items-stretch gap-2 px-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-3 sm:px-0">
+        <Button
+          type="button"
+          size="lg"
+          className="w-full px-8 sm:min-w-48 sm:w-auto"
+          onClick={onRestart}
+        >
           Phát lại từ đầu
         </Button>
       </div>
@@ -31,13 +36,13 @@ export function LiveControls({
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-3">
+    <div className="flex w-full max-w-sm flex-col items-stretch gap-2 px-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-3 sm:px-0">
       <Button
         type="button"
         size="lg"
         variant="outline"
         className={cn(
-          "min-w-40 px-8",
+          "w-full px-8 sm:min-w-40 sm:w-auto",
           isPaused && "border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100"
         )}
         onClick={onTogglePause}
@@ -57,7 +62,7 @@ export function LiveControls({
       <Button
         type="button"
         size="lg"
-        className="min-w-40 px-8"
+        className="w-full px-8 sm:min-w-40 sm:w-auto"
         onClick={onNext}
         disabled={!canNext}
       >

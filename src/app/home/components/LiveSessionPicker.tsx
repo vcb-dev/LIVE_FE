@@ -25,7 +25,7 @@ export function LiveSessionPicker({
     <Select value={selectedSessionId} onValueChange={onSessionChange}>
       <SelectTrigger
         size="sm"
-        className="h-8 max-w-[min(100%,20rem)] font-semibold"
+        className="h-8 min-w-0 max-w-[min(100%,12rem)] font-semibold sm:max-w-[min(100%,16rem)] md:max-w-[min(100%,20rem)]"
         aria-label="Chọn kịch bản live"
       >
         <SelectValue placeholder="Chọn kịch bản" />

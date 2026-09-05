@@ -11,8 +11,8 @@ interface LiveCueQueueProps {
 
 export function LiveCueQueue({ cues }: LiveCueQueueProps) {
   return (
-    <aside className="flex h-full min-h-0 w-full flex-col border-t border-border bg-muted/30 lg:w-80 lg:border-t-0 lg:border-l">
-      <div className="flex items-center justify-between px-5 py-4">
+    <aside className="flex max-h-52 min-h-0 w-full shrink-0 flex-col border-t border-border bg-muted/30 sm:max-h-64 lg:h-full lg:max-h-none lg:w-80 lg:border-t-0 lg:border-l">
+      <div className="flex items-center justify-between px-4 py-3 sm:px-5 sm:py-4">
         <h2 className="text-sm font-semibold tracking-wide text-foreground uppercase">
           Tiếp theo
         </h2>

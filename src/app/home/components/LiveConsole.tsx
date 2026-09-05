@@ -43,11 +43,11 @@ export function LiveConsole({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col bg-background text-foreground">
-      <header className="flex shrink-0 items-center justify-between gap-4 border-b border-border bg-card px-4 py-3 md:px-6">
-        <div className="flex min-w-0 items-center gap-3">
+      <header className="flex shrink-0 flex-col gap-2 border-b border-border bg-card px-3 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-4 sm:py-3 md:px-6">
+        <div className="flex min-w-0 flex-wrap items-center gap-2 sm:gap-3">
           <span
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold tracking-wider uppercase",
+              "inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold tracking-wider uppercase",
               isPaused || isFinished
                 ? "bg-muted text-muted-foreground"
                 : "bg-destructive/10 text-destructive"
@@ -61,27 +61,32 @@ export function LiveConsole({
             />
             {isFinished ? "Hết phiên" : isPaused ? "Pause" : "Live"}
           </span>
-          <div className="flex min-w-0 items-center">
+          <div className="flex min-w-0 flex-1 items-center gap-2">
             <LiveSessionPicker
               sessions={sessions}
               selectedSessionId={selectedSessionId}
               onSessionChange={onSessionChange}
             />
-            <p className="text-md ml-2 whitespace-nowrap text-muted-foreground">
-              Mục {Math.min(index + 1, total)}/{total}
-              {current
-                ? ` · ${formatDuration(current.durationSec)} kế hoạch`
-                : ""}
+            <p className="text-sm whitespace-nowrap text-muted-foreground sm:text-base">
+              <span className="sm:hidden">
+                {Math.min(index + 1, total)}/{total}
+              </span>
+              <span className="hidden sm:inline">
+                Mục {Math.min(index + 1, total)}/{total}
+                {current
+                  ? ` · ${formatDuration(current.durationSec)} kế hoạch`
+                  : ""}
+              </span>
             </p>
           </div>
         </div>
-        <p className="text-md hidden text-muted-foreground/70 sm:block">
+        <p className="hidden text-sm text-muted-foreground/70 md:block">
           Bấm Space: tạm dừng - Bấm N: bỏ qua
         </p>
       </header>
 
       <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        <section className="flex min-h-0 flex-1 flex-col items-center justify-center gap-8 px-4 py-8 md:px-10">
+        <section className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4 px-3 py-4 sm:gap-6 sm:px-4 sm:py-6 md:gap-8 md:px-10 md:py-8">
           {isFinished || !current ? (
             <div className="text-center">
               <p className="text-xs font-semibold tracking-[0.25em] text-muted-foreground uppercase">
@@ -122,7 +127,7 @@ export function LiveConsole({
                     </span>
                   ) : null}
                 </div>
-                <h1 className="max-w-4xl text-3xl leading-tight font-bold tracking-tight text-balance md:text-5xl lg:text-6xl">
+                <h1 className="max-w-4xl px-2 text-2xl leading-tight font-bold tracking-tight text-balance sm:text-3xl md:text-5xl lg:text-6xl">
                   {current.title}
                 </h1>
               </div>
