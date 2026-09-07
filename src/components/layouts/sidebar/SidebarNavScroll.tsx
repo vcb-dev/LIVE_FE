@@ -4,17 +4,19 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
 import { NavGroup } from "./NavGroup"
-import { ADMIN_NAV_ITEMS } from "./nav-items"
+import { ADMIN_NAV_ITEMS, ADMIN_ONLY_NAV_ITEMS } from "./nav-items"
 import type { NavItem, ScrollFadeState } from "./types"
 
 interface SidebarNavScrollProps {
   showSettings?: boolean
+  showAdminOnly?: boolean
   operationItems?: NavItem[]
   salesItems?: NavItem[]
 }
 
 export function SidebarNavScroll({
   showSettings,
+  showAdminOnly,
   operationItems,
   salesItems,
 }: SidebarNavScrollProps) {
@@ -54,7 +56,7 @@ export function SidebarNavScroll({
     }
 
     return () => resizeObserver.disconnect()
-  }, [showSettings, operationItems, salesItems, updateScrollFade])
+  }, [showSettings, showAdminOnly, operationItems, salesItems, updateScrollFade])
 
   return (
     <div className="relative min-h-0 overflow-hidden">
@@ -66,6 +68,9 @@ export function SidebarNavScroll({
         <nav className="space-y-6 px-3 py-2 pt-4 pb-3" id="nav-groups">
           {operationItems && operationItems.length > 0 ? (
             <NavGroup title="HOẠT ĐỘNG" items={operationItems} />
+          ) : null}
+          {showAdminOnly && ADMIN_ONLY_NAV_ITEMS.length > 0 ? (
+            <NavGroup title="HỆ THỐNG" items={ADMIN_ONLY_NAV_ITEMS} />
           ) : null}
           {showSettings && ADMIN_NAV_ITEMS.length > 0 ? (
             <NavGroup title="QUẢN TRỊ" items={ADMIN_NAV_ITEMS} />

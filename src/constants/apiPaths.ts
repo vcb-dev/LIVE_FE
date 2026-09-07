@@ -29,6 +29,10 @@ const API_PATHS = {
     BY_ID: (id: string) => `/live-sessions/${id}`,
     REGENERATE: (id: string) => `/live-sessions/${id}/regenerate`,
   },
+  USERS: {
+    BASE: "/users",
+    BY_ID: (id: string) => `/users/${id}`,
+  },
 }
 
 export default API_PATHS
