@@ -18,7 +18,7 @@ export const ROLE_GROUPS = {
   member: ["MEMBER"] as const satisfies readonly UserRole[],
   /** LEADER + ADMIN — cùng quyền hôm nay. */
   staff: ["LEADER", "ADMIN"] as const satisfies readonly UserRole[],
-  // adminOnly: ["ADMIN"] as const satisfies readonly UserRole[], // bỏ comment khi cần
+  adminOnly: ["ADMIN"] as const satisfies readonly UserRole[],
 } as const
 
 export type RoleGroup = keyof typeof ROLE_GROUPS

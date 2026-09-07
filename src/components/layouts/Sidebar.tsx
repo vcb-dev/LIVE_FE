@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { useLocation } from "react-router-dom"
 
-import { useIsStaff } from "@/lib/roles"
+import { useInGroup, useIsStaff } from "@/lib/roles"
 import { cn } from "@/lib/utils"
 
 import { OPERATION_NAV_ITEMS, SALES_NAV_ITEMS } from "./sidebar/nav-items"
@@ -19,6 +19,7 @@ export function Sidebar({
 }: SidebarProps) {
   const location = useLocation()
   const showStaffNav = useIsStaff()
+  const showAdminOnlyNav = useInGroup("adminOnly")
   const prevPathRef = useRef(location.pathname)
 
   useEffect(() => {
@@ -46,6 +47,7 @@ export function Sidebar({
 
       <SidebarNavScroll
         showSettings={showStaffNav}
+        showAdminOnly={showAdminOnlyNav}
         operationItems={OPERATION_NAV_ITEMS}
         salesItems={SALES_NAV_ITEMS}
       />
