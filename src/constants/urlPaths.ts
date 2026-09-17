@@ -9,4 +9,5 @@ export const urlPaths = {
   liveSessionNew: "/live-sessions/new",
   liveSessionDetailPattern: "/live-sessions/:id",
   liveSessionDetail: (id: string) => `/live-sessions/${id}`,
+  users: "/users",
 } as const

@@ -5,6 +5,7 @@ import {
   Package,
   ScrollText,
   Smile,
+  Users,
 } from "lucide-react"
 
 import { urlPaths } from "@/constants/urlPaths"
@@ -22,6 +23,15 @@ export const OPERATION_NAV_ITEMS: NavItem[] = [
 export const KPI_NAV_ITEMS: NavItem[] = []
 
 export const SALES_NAV_ITEMS: NavItem[] = []
+
+/** Chỉ ADMIN — quản lý người dùng. */
+export const ADMIN_ONLY_NAV_ITEMS: NavItem[] = [
+  {
+    to: urlPaths.users,
+    label: "Người dùng",
+    icon: <Users className="h-4 w-4" />,
+  },
+]
 
 export const ADMIN_NAV_ITEMS: NavItem[] = [
   {
