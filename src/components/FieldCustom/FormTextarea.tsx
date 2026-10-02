@@ -55,7 +55,7 @@ export function FormTextarea<T extends FieldValues>({
               rows={rows}
               disabled={disabled}
               className={cn(
-                "resize-none border border-slate-200",
+                "resize-y border border-slate-200",
                 textareaClassName
               )}
               {...field}
