@@ -4,6 +4,7 @@ import LoginPage from "@/app/auth/LoginPage"
 import BlockGroupsPage from "@/app/block-groups/BlockGroupsPage"
 import EmotionsPage from "@/app/emotions/EmotionsPage"
 import HomePage from "@/app/home/HomePage"
+import LiveLookupsPage from "@/app/live-lookups/LiveLookupsPage"
 import LiveSessionDetailPage from "@/app/live-sessions/LiveSessionDetailPage"
 import LiveSessionNewPage from "@/app/live-sessions/LiveSessionNewPage"
 import LiveSessionsPage from "@/app/live-sessions/LiveSessionsPage"
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path: urlPaths.users,
         element: <UsersPage />,
+      },
+      {
+        path: urlPaths.liveLookups,
+        element: <LiveLookupsPage />,
       },
     ],
   },

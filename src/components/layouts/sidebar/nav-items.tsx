@@ -5,6 +5,7 @@ import {
   Package,
   ScrollText,
   Smile,
+  Tags,
   Users,
 } from "lucide-react"
 
@@ -58,5 +59,11 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
     to: urlPaths.liveSessions,
     label: "Kịch bản live",
     icon: <Clapperboard className="h-4 w-4" />,
+  },
+
+  {
+    to: urlPaths.liveLookups,
+    label: "Danh mục",
+    icon: <Tags className="h-4 w-4" />,
   },
 ]
