@@ -1,4 +1,5 @@
 import {
+  BarChart3,
   ClipboardList,
   Clapperboard,
   Home,
@@ -71,5 +72,10 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
     to: urlPaths.sessionReports,
     label: "Báo cáo ca",
     icon: <ClipboardList className="h-4 w-4" />,
+  },
+  {
+    to: urlPaths.sessionRankings,
+    label: "Thống kê ngày",
+    icon: <BarChart3 className="h-4 w-4" />,
   },
 ]

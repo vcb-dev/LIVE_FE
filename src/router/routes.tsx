@@ -10,6 +10,7 @@ import LiveSessionNewPage from "@/app/live-sessions/LiveSessionNewPage"
 import LiveSessionsPage from "@/app/live-sessions/LiveSessionsPage"
 import ProductsPage from "@/app/products/ProductsPage"
 import ScriptBlocksPage from "@/app/script-blocks/ScriptBlocksPage"
+import SessionRankingsPage from "@/app/session-reports/SessionRankingsPage"
 import SessionReportsPage from "@/app/session-reports/SessionReportsPage"
 import UsersPage from "@/app/users/UsersPage"
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
       {
         path: urlPaths.sessionReports,
         element: <SessionReportsPage />,
+      },
+      {
+        path: urlPaths.sessionRankings,
+        element: <SessionRankingsPage />,
       },
     ],
   },

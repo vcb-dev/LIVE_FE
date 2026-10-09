@@ -30,6 +30,23 @@ export interface SessionReport {
   updatedAt: string
 }
 
+export interface DailyRankingRow {
+  rank: number
+  staffName: string
+  value: number
+}
+
+export interface DailyRankings {
+  revenue: DailyRankingRow[]
+  traffic: DailyRankingRow[]
+  retention: DailyRankingRow[]
+}
+
+export interface DailyRankingsParams {
+  from?: string
+  to?: string
+}
+
 export interface ListSessionReportsParams {
   page?: number
   limit?: number

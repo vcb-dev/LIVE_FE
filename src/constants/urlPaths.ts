@@ -12,4 +12,5 @@ export const urlPaths = {
   users: "/users",
   liveLookups: "/live-lookups",
   sessionReports: "/session-reports",
+  sessionRankings: "/session-rankings",
 } as const
