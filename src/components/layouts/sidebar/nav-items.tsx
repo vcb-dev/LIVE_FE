@@ -1,4 +1,5 @@
 import {
+  ClipboardList,
   Clapperboard,
   Home,
   Layers,
@@ -65,5 +66,10 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
     to: urlPaths.liveLookups,
     label: "Danh mục",
     icon: <Tags className="h-4 w-4" />,
+  },
+  {
+    to: urlPaths.sessionReports,
+    label: "Báo cáo ca",
+    icon: <ClipboardList className="h-4 w-4" />,
   },
 ]

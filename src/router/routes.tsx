@@ -10,6 +10,7 @@ import LiveSessionNewPage from "@/app/live-sessions/LiveSessionNewPage"
 import LiveSessionsPage from "@/app/live-sessions/LiveSessionsPage"
 import ProductsPage from "@/app/products/ProductsPage"
 import ScriptBlocksPage from "@/app/script-blocks/ScriptBlocksPage"
+import SessionReportsPage from "@/app/session-reports/SessionReportsPage"
 import UsersPage from "@/app/users/UsersPage"
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
 import MainLayout from "@/components/layouts/MainLayout"
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
       {
         path: urlPaths.liveLookups,
         element: <LiveLookupsPage />,
+      },
+      {
+        path: urlPaths.sessionReports,
+        element: <SessionReportsPage />,
       },
     ],
   },

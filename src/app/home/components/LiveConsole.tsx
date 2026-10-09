@@ -1,7 +1,10 @@
 import { Radio } from "lucide-react"
+import { useState } from "react"
 
 import { BLOCK_TYPE_LABELS } from "@/app/block-groups/constants/block-type"
+import { SessionReportDialog } from "@/app/session-reports/components/SessionReportDialog"
 import type { LiveSessionListItem } from "@/app/live-sessions/types/live-session"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 import { LIVE_CUE_TYPE_TONE } from "../constants/live-cue-type-tone"
@@ -40,6 +43,7 @@ export function LiveConsole({
     togglePause,
     restart,
   } = useLiveConsole(cues)
+  const [reportOpen, setReportOpen] = useState(false)
 
   return (
     <div className="flex min-h-0 flex-1 flex-col bg-background text-foreground">
@@ -134,13 +138,27 @@ export function LiveConsole({
             </>
           )}
 
-          <LiveControls
-            isPaused={isPaused}
-            isFinished={isFinished}
-            canNext={!isFinished}
-            onTogglePause={togglePause}
-            onNext={next}
-            onRestart={restart}
+          <div className="flex w-full max-w-sm flex-col items-stretch gap-2 sm:max-w-none sm:items-center">
+            <LiveControls
+              isPaused={isPaused}
+              isFinished={isFinished}
+              canNext={!isFinished}
+              onTogglePause={togglePause}
+              onNext={next}
+              onRestart={restart}
+            />
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => setReportOpen(true)}
+            >
+              Kết thúc ca
+            </Button>
+          </div>
+          <SessionReportDialog
+            open={reportOpen}
+            onOpenChange={setReportOpen}
+            sessionId={selectedSessionId}
           />
         </section>
 

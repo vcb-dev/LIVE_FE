@@ -37,6 +37,9 @@ const API_PATHS = {
     BASE: "/live-lookups",
     BY_ID: (id: string) => `/live-lookups/${id}`,
   },
+  SESSION_REPORTS: {
+    BASE: "/session-reports",
+  },
 }
 
 export default API_PATHS
