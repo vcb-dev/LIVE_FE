@@ -4,11 +4,14 @@ import LoginPage from "@/app/auth/LoginPage"
 import BlockGroupsPage from "@/app/block-groups/BlockGroupsPage"
 import EmotionsPage from "@/app/emotions/EmotionsPage"
 import HomePage from "@/app/home/HomePage"
+import LiveLookupsPage from "@/app/live-lookups/LiveLookupsPage"
 import LiveSessionDetailPage from "@/app/live-sessions/LiveSessionDetailPage"
 import LiveSessionNewPage from "@/app/live-sessions/LiveSessionNewPage"
 import LiveSessionsPage from "@/app/live-sessions/LiveSessionsPage"
 import ProductsPage from "@/app/products/ProductsPage"
 import ScriptBlocksPage from "@/app/script-blocks/ScriptBlocksPage"
+import SessionRankingsPage from "@/app/session-reports/SessionRankingsPage"
+import SessionReportsPage from "@/app/session-reports/SessionReportsPage"
 import UsersPage from "@/app/users/UsersPage"
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
 import MainLayout from "@/components/layouts/MainLayout"
@@ -61,6 +64,18 @@ export const router = createBrowserRouter([
       {
         path: urlPaths.users,
         element: <UsersPage />,
+      },
+      {
+        path: urlPaths.liveLookups,
+        element: <LiveLookupsPage />,
+      },
+      {
+        path: urlPaths.sessionReports,
+        element: <SessionReportsPage />,
+      },
+      {
+        path: urlPaths.sessionRankings,
+        element: <SessionRankingsPage />,
       },
     ],
   },
